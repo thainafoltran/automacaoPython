@@ -59,3 +59,32 @@ for piada in dados_processados:
 
 conexao.commit()
 conexao.close()
+
+#ENVIANDO O E-MAIL
+try:
+    print('Enviando seu e-mail... 📨')
+
+    servidor_email = smtplib.SMTP('smtp.gmail.com', 587)
+    servidor_email.starttls()
+    servidor_email.login('foltran96t@gmail.com', 'doej qbqb lvhk fjue')  
+
+    remetente = 'foltran96t@gmail.com'
+    destinatarios = ['thainafoltran@hotmail.com']
+    mensagem = MIMEMultipart()
+    mensagem['From'] = remetente
+    mensagem['To'] = ', '.join(destinatarios)
+    mensagem['Subject'] = 'Relatório de Piadas do Chuck Norris'
+
+    contagem = len(dados_processados)
+    if contagem > 0:
+        for idx, piada in enumerate(dados_processados, 1):
+            corpo = f"""Foram coletadas {contagem} piadas da categoria de desenvolvedor:\n\n🤣😂Piada{idx}:\n{piada[1]}\n\nEste e-mail foi gerado automaticamente com automação em Python."""
+    else:
+        corpo = "Nenhuma piada da categoria desenvolvedor foi encontrada! "
+
+    mensagem.attach(MIMEText(corpo, 'plain'))
+    servidor_email.sendmail(remetente, destinatarios, mensagem.as_string())
+
+    print('📤 E-mail enviado com sucesso!')
+except Exception as erro:
+    print(f'Erro ao enviar e-mail: {erro}')
