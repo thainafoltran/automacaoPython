@@ -37,3 +37,25 @@ for _ in range(10):
         print('Não foi possível encontrar piadas')
 
 conexao.commit()
+
+#SEGUNDA TABELA
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS dados_processados (
+        id TEXT PRIMARY KEY,
+        piada TEXT,
+        categoria TEXT
+    )
+''')
+
+cursor.execute("SELECT * FROM piadas WHERE categoria LIKE '%dev%'")
+dados_processados = cursor.fetchall()
+
+for piada in dados_processados:
+    cursor.execute('''
+        INSERT OR REPLACE INTO dados_processados (
+            id, piada, categoria
+        ) VALUES (?, ?, ?)
+    ''', piada)
+
+conexao.commit()
+conexao.close()
