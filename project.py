@@ -66,10 +66,10 @@ try:
 
     servidor_email = smtplib.SMTP('smtp.gmail.com', 587)
     servidor_email.starttls()
-    servidor_email.login('foltran96t@gmail.com', 'doej qbqb lvhk fjue')  
+    servidor_email.login('seuemail@email.com', 'sua senha app')  
 
-    remetente = 'foltran96t@gmail.com'
-    destinatarios = ['thainafoltran@hotmail.com']
+    remetente = 'seuemail@email.com'
+    destinatarios = ['email@email.com']
     mensagem = MIMEMultipart()
     mensagem['From'] = remetente
     mensagem['To'] = ', '.join(destinatarios)
